@@ -1,5 +1,5 @@
 # Import any dependencies needed to execute sql queries
-from .sql_execution import *
+from .sql_execution import QueryMixin
 
 # Define a class called QueryBase
 # Use inheritance to add methods
