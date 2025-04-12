@@ -31,17 +31,18 @@ Class QueryBase:
         # Use f-string formatting to set the name
         # of id columns used for joining
         # order by the event_date column
-        sql_query = f''
-            select "event_date"
-                ,sum("positive_events") as 'Positive Events'
-                ,sum("negative_events") as 'Negative Events'
-         from "{self.name}"
-         left join "employee_events" using ("{self.name}_id")
-         where "{self.name}"."{self.name}_id" = {id}
-         group by "event_date"
-         order by "event_date";
-            
-        return *.pandas_query(self, sql_query)
+        sql_query = f"""
+            SELECT A.event_date
+                ,SUM("positive_events") as 'TOT_POS_EVNTS'
+                ,SUM("negative_events") as 'TOT_NEG_EVNTS'
+         FROM {self.name} A
+         LEFT JOIN employee_events B 
+            ON A.{self.name}_id = B.{self.name}_id
+         WHERE A.{self.name} = {id}
+         GROUP BY B.event_date
+         ORDER BY B.event_date;
+         """   
+        return self.pandas_query(self, sql_query)
 
     # Define a `notes` method that receives an id argument
     # This function should return a pandas dataframe
@@ -54,12 +55,10 @@ Class QueryBase:
         # with f-string formatting
         # so the query returns the notes
         # for the table name in the `name` class attribute
-        sql_query = f''
-            select "note_date"
+        sql_query = f"""
+            SELECT note_date
             ,note
-            from "notes"
-            left join "{self.name}" using ("{self.name}_id")
-            where "{self.name}"."{self.name}_id" = {id}
-            
-        return *.pandas_query(self, sql_query)
-
+            FROM notes
+            WHERE "{self.name}"."{self.name}_id" = {id}
+            """
+        return self.pandas_query(self, sql_query)
