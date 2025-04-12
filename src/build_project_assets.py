@@ -95,8 +95,8 @@ for day in daterange:
             )
 
 
-df = pd.DataFrame(data, columns=['employee_id', 'team_id',
-                  'event_date', 'positive_events', 'negative_events', 'recruited'])
+df = pd.DataFrame(data, columns=['employee_id', 'team_id', 
+                                  'event_date', 'positive_events', 'negative_events', 'recruited'])
 
 data_path = cwd / 'generated_data'
 employees_path = data_path / 'employees.json'
