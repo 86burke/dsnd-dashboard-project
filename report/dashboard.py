@@ -2,9 +2,8 @@ from fasthtml.common import *
 import matplotlib.pyplot as plt
 
 # Import QueryBase, Employee, Team from employee_events
-from python_package.employee_events.query_base import QueryBase
-from python_package.employee_events.employee import Employee
-from python_package.employee_events.team import Team
+from employee_events import QueryBase, Employee, Team
+
 
 # import the load_model function from the utils.py file
 from report.utils import load_model
@@ -61,7 +60,7 @@ class Header(BaseComponent):
     # Overwrite the `build_component` method
     # Ensure the method has the same parameters
     # as the parent class
-    
+
     def build_component(self, entity_id, model):
 
         # Using the model argument for this method
