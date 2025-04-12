@@ -7,22 +7,24 @@ from employee_events.sql_execution import query
 
 # Define a subclass of QueryBase
 # called Employee
+
+
 class Emplyee(QueryBase):
 
     # Set the class attribute `name`
     # to the string "employee"
     name = 'employee'
 
-
     # Define a method called `names`
     # that receives no arguments
     # This method should return a list of tuples
     # from an sql execution
+
     def names(self):
-        
+
         # Query 3
         # Write an SQL query
-        # that selects two columns 
+        # that selects two columns
         # 1. The employee's full name
         # 2. The employee's id
         # This query should return the data
@@ -31,7 +33,6 @@ class Emplyee(QueryBase):
                         ,employee_id
                     FROM employee
                 """
-    
 
     # Define a method called `username`
     # that receives an `id` argument

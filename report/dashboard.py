@@ -27,16 +27,16 @@ from combined_components import FormGroup, CombinedComponent
 # Create a subclass of base_components/dropdown
 # called `ReportDropdown`
 class ReportDropdown(Dropdown):
-    
+
     # Overwrite the build_component method
     # ensuring it has the same parameters
     # as the Report parent class's method
     def build_component(self, entity_id, model):
-        
+
         #  Set the `label` attribute so it is set
         #  to the `name` attribute for the model
         self.label = model.name
-        
+
         # Return the output from the
         # parent class's build_component method
        return super().build_component(entity_id, model)

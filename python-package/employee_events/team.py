@@ -6,17 +6,19 @@ from employee_events.sql_execution import query
 
 # Create a subclass of QueryBase
 # called  `Team`
+
+
 class Team(QueryBase):
 
     # Set the class attribute `name`
     # to the string "team"
     name = "team"
 
-
     # Define a `names` method
     # that receives no arguments
     # This method should return
     # a list of tuples from an sql execution
+
     @query
     def names(self):
         # Query 5
@@ -29,12 +31,12 @@ class Team(QueryBase):
             team_id AS 'Team_ID'
         FRIM team
         """
-    
 
     # Define a `username` method
     # that receives an ID argument
     # This method should return
     # a list of tuples from an sql execution
+
     @query
     def username(self, id):
 
@@ -57,7 +59,7 @@ class Team(QueryBase):
     # so when it is called, a pandas dataframe
     # is returns containing the execution of
     # the sql query
-    #### YOUR CODE HERE
+    # YOUR CODE HERE
     def model_data(self, id):
 
         return f"""
