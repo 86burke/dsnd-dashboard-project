@@ -1,15 +1,15 @@
 # Import the QueryBase class
-from employee_events.query_base import QueryBase
+from query_base import QueryBase
 
 # Import dependencies needed for sql execution
 # from the `sql_execution` module
-from employee_events.sql_execution import query
+from sql_execution import QueryMixin
 
 # Define a subclass of QueryBase
 # called Employee
 
 
-class Emplyee(QueryBase):
+class Employee(QueryBase, QueryMixin):
 
     # Set the class attribute `name`
     # to the string "employee"
@@ -29,16 +29,17 @@ class Emplyee(QueryBase):
         # 2. The employee's id
         # This query should return the data
         # for all employees in the database
-        return """ SELECT first_name ||' '|| last_name AS 'Full_Name'
+        query = """ SELECT first_name ||' '|| last_name AS 'Full_Name'
                         ,employee_id
                     FROM employee
                 """
-
+        return self.query(query)
+    
     # Define a method called `username`
     # that receives an `id` argument
     # This method should return a list of tuples
     # from an sql execution
-   def username(self, id):
+    def username(self, id):
         
         # Query 4
         # Write an SQL query
@@ -46,12 +47,13 @@ class Emplyee(QueryBase):
         # Use f-string formatting and a WHERE filter
         # to only return the full name of the employee
         # with an id equal to the id argument
-        return """
+        query = """
         SLECT first_name ||' '|| last_name AS 'Full_Name'
         FROM employee
         WHREE employee_id = {id}
         """
-
+        return self.query(query)
+    
     # Below is method with an SQL query
     # This SQL query generates the data needed for
     # the machine learning model.
@@ -62,11 +64,11 @@ class Emplyee(QueryBase):
     #### YOUR CODE HERE
     def model_data(self, id):
 
-        return f"""
+        return self.pandas_query(f"""
                     SELECT SUM(positive_events) positive_events
                          , SUM(negative_events) negative_events
                     FROM {self.name}
                     JOIN employee_events
                         USING({self.name}_id)
                     WHERE {self.name}.{self.name}_id = {id}
-                """
+                """)

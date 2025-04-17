@@ -1,10 +1,11 @@
 # Import any dependencies needed to execute sql queries
-from .sql_execution import QueryMixin
+import pandas as pd
+from sql_execution import QueryMixin
 
 # Define a class called QueryBase
 # Use inheritance to add methods
 # for querying the employee_events database.
-Class QueryBase:
+class QueryBase(QueryMixin):
 
     # Create a class attribute called `name`
     # set the attribute to an empty string
@@ -12,7 +13,7 @@ Class QueryBase:
 
     # Define a `names` method that receives
     # no passed arguments
-   def names(self)
+    def names(self):
         
         # Return an empty list
         return []
@@ -21,6 +22,7 @@ Class QueryBase:
     # Define an `event_counts` method
     # that receives an `id` argument
     # This method should return a pandas dataframe
+
     def event_counts(self, id):
 
         # QUERY 1
@@ -31,18 +33,18 @@ Class QueryBase:
         # Use f-string formatting to set the name
         # of id columns used for joining
         # order by the event_date column
-        sql_query = f"""
+        query = f"""
             SELECT A.event_date
                 ,SUM("positive_events") as 'TOT_POS_EVNTS'
                 ,SUM("negative_events") as 'TOT_NEG_EVNTS'
-         FROM {self.name} A
-         LEFT JOIN employee_events B 
+            FROM {self.name} A
+            LEFT JOIN employee_events B 
             ON A.{self.name}_id = B.{self.name}_id
-         WHERE A.{self.name} = {id}
-         GROUP BY B.event_date
-         ORDER BY B.event_date;
-         """   
-        return self.pandas_query(self, sql_query)
+            WHERE A.{self.name} = {id}
+            GROUP BY B.event_date
+            ORDER BY B.event_date;
+         """  
+        return self.pandas_query(self, query)
 
     # Define a `notes` method that receives an id argument
     # This function should return a pandas dataframe
@@ -55,10 +57,10 @@ Class QueryBase:
         # with f-string formatting
         # so the query returns the notes
         # for the table name in the `name` class attribute
-        sql_query = f"""
+        query = f"""
             SELECT note_date
             ,note
             FROM notes
             WHERE "{self.name}"."{self.name}_id" = {id}
             """
-        return self.pandas_query(self, sql_query)
+        return self.pandas_query(self, query)
