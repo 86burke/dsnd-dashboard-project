@@ -6,21 +6,21 @@ from employee_events import QueryBase, Employee, Team
 
 
 # import the load_model function from the utils.py file
-from report.utils import load_model
+from utils import load_model
 
 """
 Below, we import the parent classes
 you will use for subclassing
 """
-from base_components import (
+from base_c import (
+    BaseComp,
     Dropdown,
-    BaseComponent,
     Radio,
     MatplotlibViz,
     DataTable
 )
 
-from combined_components import FormGroup, CombinedComponent
+from .combined_components import FormGroup, CombinedComponent
 
 
 # Create a subclass of base_components/dropdown
@@ -43,19 +43,19 @@ class ReportDropdown(Dropdown):
     # Overwrite the `component_data` method
     # Ensure the method uses the same parameters
     # as the parent class method
-    def component_data(self, entity_id, model):
+    def component_data(self, asset_id, model):
 
         # Using the model argument
         # call the employee_events method
         # that returns the user-type's
         # names and ids
-        return model.names()
+        return model.names(asset_id)
 
 # Create a subclass of base_components/BaseComponent
 # called `Header`
 
 
-class Header(BaseComponent):
+class Header(BaseComp):
 
     # Overwrite the `build_component` method
     # Ensure the method has the same parameters
@@ -66,7 +66,7 @@ class Header(BaseComponent):
         # Using the model argument for this method
         # return a fasthtml H1 objects
         # containing the model's name attribute
-        return H1(model.name)
+        return self.build_component(model.name)
 
 
 # Create a subclass of base_components/MatplotlibViz
@@ -75,7 +75,7 @@ class LineChart(MatplotlibViz):
 
     # Overwrite the parent class's `visualization`
     # method. Use the same parameters as the parent
-    def visualization(self, entity_id, model):
+    def visualization(self, asset_id, model):
 
         # Pass the `asset_id` argument to
         # the model's `event_counts` method to
@@ -237,7 +237,7 @@ class Report(CombinedComponent):
     # containing initialized instances
     # of the header, dashboard filters,
     # data visualizations, and notes table
-    children = [Header(), DashboadFilters(), Visualizations(), NotesTable()]
+    children = [Header(), DashboardFilters(), Visualizations(), NotesTable()]
 
 
 # Initialize a fasthtml app

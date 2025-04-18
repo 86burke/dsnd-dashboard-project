@@ -1,4 +1,4 @@
-from .base_component import BaseComponent
+from base_components import BaseComp
 from fasthtml.common import Select, Label, Div, Option
 
 

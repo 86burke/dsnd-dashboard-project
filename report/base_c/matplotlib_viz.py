@@ -1,4 +1,4 @@
-from .base_component import BaseComponent
+from base_components import BaseComp
 
 import matplotlib.pyplot
 from fasthtml.common import Img

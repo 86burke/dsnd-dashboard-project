@@ -1,4 +1,4 @@
-class BaseComponent:
+class BaseComp:
 
     def build_component(self, entity_id, model):
         raise NotImplementedError
