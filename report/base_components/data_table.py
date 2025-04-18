@@ -1,4 +1,4 @@
-from base_components import BaseComp
+from base_components import BaseComponent
 from fasthtml.common import Table, Tr, Th, Td
 
 

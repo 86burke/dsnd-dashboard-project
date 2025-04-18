@@ -12,15 +12,15 @@ from utils import load_model
 Below, we import the parent classes
 you will use for subclassing
 """
-from base_c import (
-    BaseComp,
+from base_components import (
+    BaseComponent,
     Dropdown,
     Radio,
     MatplotlibViz,
     DataTable
 )
 
-from .combined_components import FormGroup, CombinedComponent
+from combined_components import FormGroup, CombinedComponent
 
 
 # Create a subclass of base_components/dropdown
@@ -55,7 +55,7 @@ class ReportDropdown(Dropdown):
 # called `Header`
 
 
-class Header(BaseComp):
+class Header(BaseComponent):
 
     # Overwrite the `build_component` method
     # Ensure the method has the same parameters
@@ -241,7 +241,7 @@ class Report(CombinedComponent):
 
 
 # Initialize a fasthtml app
-app = fasthtml(__name__)
+app = FastHTML(__name__)
 
 # Initialize the `Report` class
 report = Report()
