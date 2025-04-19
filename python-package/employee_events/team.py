@@ -25,12 +25,12 @@ class Team(QueryBase, QueryMixin):
         # the team_name and team_id columns
         # from the team table for all teams
         # in the database
-        query = """
+        sql_query = """
         SELECT team_name AS 'Team_Name",
             team_id AS 'Team_ID'
         FRIM team
         """
-        return self.query(query)
+        return self.query(sql_query)
 
     # Define a `username` method
     # that receives an ID argument
@@ -45,12 +45,12 @@ class Team(QueryBase, QueryMixin):
         # Use f-string formatting and a WHERE filter
         # to only return the team name related to
         # the ID argument
-        query = f"""
+        sql_query = f"""
         SELECT team_name AS 'Team_Name'
         FROM team
         WHERE team_id = {id}
         """
-        return self.query(query)
+        return self.query(sql_query)
 
     # Below is method with an SQL query
     # This SQL query generates the data needed for
@@ -62,7 +62,7 @@ class Team(QueryBase, QueryMixin):
     # YOUR CODE HERE
     def model_data(self, id):
 
-        return self.pandas_query(f"""
+        sql_query =  f"""
             SELECT positive_events, negative_events FROM (
                     SELECT employee_id
                          , SUM(positive_events) positive_events
@@ -73,4 +73,5 @@ class Team(QueryBase, QueryMixin):
                     WHERE {self.name}.{self.name}_id = {id}
                     GROUP BY employee_id
                    )
-                """)
+                """
+        return self.pandas_query(sql_query)

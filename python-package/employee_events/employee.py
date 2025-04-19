@@ -29,11 +29,11 @@ class Employee(QueryBase, QueryMixin):
         # 2. The employee's id
         # This query should return the data
         # for all employees in the database
-        query = """ SELECT first_name ||' '|| last_name AS 'Full_Name'
+        sql_query = """ SELECT first_name ||' '|| last_name AS 'Full_Name'
                         ,employee_id
                     FROM employee
                 """
-        return self.query(query)
+        return self.query(sql_query)
     
     # Define a method called `username`
     # that receives an `id` argument
@@ -47,12 +47,12 @@ class Employee(QueryBase, QueryMixin):
         # Use f-string formatting and a WHERE filter
         # to only return the full name of the employee
         # with an id equal to the id argument
-        query = """
+        sql_query = """
         SLECT first_name ||' '|| last_name AS 'Full_Name'
         FROM employee
         WHREE employee_id = {id}
         """
-        return self.query(query)
+        return self.query(sql_query)
     
     # Below is method with an SQL query
     # This SQL query generates the data needed for
@@ -64,11 +64,12 @@ class Employee(QueryBase, QueryMixin):
     #### YOUR CODE HERE
     def model_data(self, id):
 
-        return self.pandas_query(f"""
+        sql_query = f"""
                     SELECT SUM(positive_events) positive_events
                          , SUM(negative_events) negative_events
                     FROM {self.name}
                     JOIN employee_events
                         USING({self.name}_id)
                     WHERE {self.name}.{self.name}_id = {id}
-                """)
+                """
+        return self.pandas_query(sql_query)

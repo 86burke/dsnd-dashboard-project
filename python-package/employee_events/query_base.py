@@ -38,13 +38,11 @@ class QueryBase(QueryMixin):
                 ,SUM("positive_events") as 'TOT_POS_EVNTS'
                 ,SUM("negative_events") as 'TOT_NEG_EVNTS'
             FROM {self.name} A
-            LEFT JOIN employee_events B 
-            ON A.{self.name}_id = B.{self.name}_id
-            WHERE A.{self.name} = {id}
+            WHERE A.{self.name}_id = {id}
             GROUP BY B.event_date
             ORDER BY B.event_date;
          """  
-        return self.pandas_query(self, query)
+        return self.pandas_query(query)
 
     # Define a `notes` method that receives an id argument
     # This function should return a pandas dataframe
@@ -60,7 +58,9 @@ class QueryBase(QueryMixin):
         query = f"""
             SELECT note_date
             ,note
-            FROM notes
-            WHERE "{self.name}"."{self.name}_id" = {id}
+            FROM notes as a
+            LEFT JOIN {self.name} AS b
+            ON b.{self.name}_id = a{self.name}_id
+            WHERE b{self.name}_id = {id}
             """
-        return self.pandas_query(self, query)
+        return self.pandas_query(query)
