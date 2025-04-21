@@ -2,17 +2,18 @@
 from query_base import QueryBase
 
 # Import dependencies for sql execution
-from sql_execution import QueryMixin
+from sqlite3 import connect
+import pandas as pd
 
 # Create a subclass of QueryBase
 # called  `Team`
 
 
-class Team(QueryBase, QueryMixin):
+class Team(QueryBase):
 
     # Set the class attribute `name`
     # to the string "team"
-    name = "team"
+    name = 'team'
 
     # Define a `names` method
     # that receives no arguments
@@ -25,10 +26,10 @@ class Team(QueryBase, QueryMixin):
         # the team_name and team_id columns
         # from the team table for all teams
         # in the database
-        sql_query = """
+        sql_query = f"""
         SELECT team_name AS 'Team_Name",
             team_id AS 'Team_ID'
-        FRIM team
+        FROM {self.name}
         """
         return self.query(sql_query)
 
@@ -47,7 +48,7 @@ class Team(QueryBase, QueryMixin):
         # the ID argument
         sql_query = f"""
         SELECT team_name AS 'Team_Name'
-        FROM team
+        FROM {self.name}
         WHERE team_id = {id}
         """
         return self.query(sql_query)
@@ -62,16 +63,16 @@ class Team(QueryBase, QueryMixin):
     # YOUR CODE HERE
     def model_data(self, id):
 
-        sql_query =  f"""
-            SELECT positive_events, negative_events FROM (
+        sql_query = f"""
+            SELECT Positive_events, Negative_events FROM (
                     SELECT employee_id
-                         , SUM(positive_events) positive_events
-                         , SUM(negative_events) negative_events
+                         , SUM(positive_events) AS 'Positive_events'
+                         , SUM(negative_events) AS 'Negative_events'
                     FROM {self.name}
-                    JOIN employee_events
+                    LEFT JOIN employee_events
                         USING({self.name}_id)
                     WHERE {self.name}.{self.name}_id = {id}
                     GROUP BY employee_id
                    )
                 """
-        return self.pandas_query(sql_query)
+        return self.query(sql_query)
