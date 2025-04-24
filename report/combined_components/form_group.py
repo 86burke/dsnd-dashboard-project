@@ -1,4 +1,4 @@
-from combined_component import CombinedComponent
+from .combined_component import CombinedComponent
 from fasthtml.common import Button, Form, Group
 
 

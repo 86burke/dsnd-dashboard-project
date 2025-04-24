@@ -5,8 +5,8 @@ import pandas as pd
 
 # Using pathlib, create a `db_path` variable
 # that points to the absolute path for the `employee_events.db` file
-db_path = Path(__file__).resolve().parent / 'employee_events.db'
-
+cwd = Path(__file__).resolve().parent 
+db_path = cwd / 'employee_events.db'
 
 # OPTION 1: MIXIN
 # Define a class called `QueryMixin`

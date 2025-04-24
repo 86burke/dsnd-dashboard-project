@@ -2,7 +2,9 @@ from fasthtml.common import *
 import matplotlib.pyplot as plt
 
 # Import QueryBase, Employee, Team from employee_events
-from employee_events import QueryBase, Employee, Team
+from employee_events.employee import Employee
+from employee_events.query_base import QueryBase
+from employee_events.team import Team
 
 
 # import the load_model function from the utils.py file
@@ -99,7 +101,7 @@ class LineChart(MatplotlibViz):
 
         # Set the dataframe columns to the list
         # ['Positive', 'Negative']
-        df.columns = ["Positvie", "Negative"]
+        df.columns = ["Positive", "Negative"]
 
         # Initialize a pandas subplot
         # and assign the figure and axis
@@ -162,7 +164,7 @@ class BarChart(MatplotlibViz):
 
             # Otherwise set `pred` to the first value
             # of the predict_proba output
-            pred = pproba(0) if len(pproba) > 0 else 0
+            pred = pproba[0] if len(pproba) > 0 else 0
 
         # Initialize a matplotlib subplot
         fig, ax = plt.subplots()
@@ -258,10 +260,7 @@ report = Report()
 @app.get('/')
 def root():
 
-    # Call the initialized report
-    # pass the integer 1 and an instance
-    # of the Employee class as arguments
-    # Return the result
+    # Render the report for Employee with ID 1
     return report(1, Employee())
 
 # Create a route for a get request
@@ -291,7 +290,7 @@ def employee_view(employee_id: str):
 
 
 @app.get('/team/{team_id}')
-def team_view(team_id):
+def team_view(team_id: str):
     # Call the initialized report
     # pass the id and an instance
     # of the Team SQL class as arguments
