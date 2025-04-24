@@ -1,5 +1,5 @@
 # Import the QueryBase class
-from query_base import QueryBase
+from .query_base import QueryBase
 
 # Import dependencies for sql execution
 from sqlite3 import connect

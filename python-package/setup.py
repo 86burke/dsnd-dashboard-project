@@ -7,7 +7,7 @@ requirements = (cwd / 'employee_events' /
 
 setup_args = dict(
     name='employee_events',
-    version='0.0',
+    version='0.0.0',
     description='SQL Query API',
     packages=find_packages(),
     package_data={'': ['employee_events.db', 'requirements.txt']},
