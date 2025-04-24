@@ -35,13 +35,13 @@ class QueryBase(QueryMixin):
         # of id columns used for joining
         # order by the event_date column
         sql_query = f"""
-            SELECT A.event_date
-                ,SUM("positive_events") as 'TOT_POS_EVNTS'
-                ,SUM("negative_events") as 'TOT_NEG_EVNTS'
-            FROM {self.name} A
-            WHERE A.{self.name}_id = {id}
-            GROUP BY B.event_date
-            ORDER BY B.event_date;
+            SELECT event_date
+                ,SUM(positive_events) as TOT_POS_EVNTS
+                ,SUM(negative_events) as TOT_NEG_EVNTS
+            FROM {self.name}
+            WHERE {self.name}_id = {id}
+            GROUP BY event_date
+            ORDER BY event_date;
          """
         return self.pandas_query(sql_query)
 

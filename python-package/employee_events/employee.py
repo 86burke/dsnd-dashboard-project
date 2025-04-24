@@ -49,10 +49,10 @@ class Employee(QueryBase):
         # to only return the full name of the employee
         # with an id equal to the id argument
         sql_query = f"""
-        SLECT first_name ||' '|| last_name AS 'Full_Name'
+        SELECT first_name ||' '|| last_name AS 'Full_Name'
         ,employee_id
         FROM {self.name}
-        WHREE employee_id = {id}
+        WHERE employee_id = {id}
         """
         return self.query(sql_query)
 
@@ -67,11 +67,11 @@ class Employee(QueryBase):
     def model_data(self, id):
 
         sql_query = f"""
-                    SELECT SUM(positive_events) AS 'Ppositive_events'
-                         , SUM(negative_events) AS 'Negative_events'
-                    FROM {self.name}
-                    LEFT JOIN employee_events
-                        USING({self.name}_id)
-                    WHERE {self.name}.{self.name}_id = {id}
-                """
+        SELECT SUM(positive_events) AS 'Positive_events'
+             , SUM(negative_events) AS 'Negative_events'
+        FROM {self.name}
+        LEFT JOIN employee_events
+            USING({self.name}_id)
+        WHERE {self.name}.{self.name}_id = {id}
+        """
         return self.pandas_query(sql_query)

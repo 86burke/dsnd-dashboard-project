@@ -27,7 +27,7 @@ class Team(QueryBase):
         # from the team table for all teams
         # in the database
         sql_query = f"""
-        SELECT team_name AS 'Team_Name",
+        SELECT team_name AS 'Team_Name',
             team_id AS 'Team_ID'
         FROM {self.name}
         """
