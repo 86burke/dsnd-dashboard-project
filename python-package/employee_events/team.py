@@ -71,7 +71,7 @@ class Team(QueryBase):
                     FROM {self.name}
                     LEFT JOIN employee_events
                         USING({self.name}_id)
-                    WHERE {self.name}.{self.name}_id = {id}
+                    WHERE {self.name}.{self.name}_id = employee_id
                     GROUP BY employee_id
                    )
                 """

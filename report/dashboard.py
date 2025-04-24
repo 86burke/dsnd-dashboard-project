@@ -2,7 +2,7 @@ from fasthtml.common import *
 import matplotlib.pyplot as plt
 
 # Import QueryBase, Employee, Team from employee_events
-from employee_events import *
+from employee_events import Team, Employee, QueryBase
 
 
 # import the load_model function from the utils.py file
@@ -94,8 +94,8 @@ class LineChart(MatplotlibViz):
 
         # Use the .cumsum method to change the data
         # in the dataframe to cumulative counts
-        df["total_positive"] = df["total_positive"].cumsum()
-        df["total_negative"] = df["total_negative"].cumsum()
+        df["TOT_POS_EVNTS"] = df["TOT_POS_EVNTS"].cumsum()
+        df["TOT_NEG_EVNTS"] = df["TOT_NEG_EVNTS"].cumsum()
 
         # Set the dataframe columns to the list
         # ['Positive', 'Negative']
@@ -117,7 +117,7 @@ class LineChart(MatplotlibViz):
         # the border color and font color to black.
         # Reference the base_components/matplotlib_viz file
         # to inspect the supported keyword arguments
-        self.set_axis_stylying(ax, bordercolor='black', fontcolor='black')
+        self.set_axis_styling(ax, bordercolor='black', fontcolor='black')
 
         # Set title and labels for x and y axis
         ax.set_title("Event Counts")
@@ -243,7 +243,7 @@ class Report(CombinedComponent):
         DashboardFilters(), 
         Visualizations(), 
         NotesTable()
-        ]
+    ]
 
 
 # Initialize a fasthtml app

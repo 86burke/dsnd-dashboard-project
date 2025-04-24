@@ -71,7 +71,6 @@ class Employee(QueryBase):
              , SUM(negative_events) AS 'Negative_events'
         FROM {self.name}
         LEFT JOIN employee_events
-            USING({self.name}_id)
-        WHERE {self.name}.{self.name}_id = {id}
+            USING({self.name}_id)        
         """
         return self.pandas_query(sql_query)
